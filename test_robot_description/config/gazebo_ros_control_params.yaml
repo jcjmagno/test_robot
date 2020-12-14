@@ -1,0 +1,3 @@
+/test_robot/gazebo_ros_control/pid_gains:
+  front_left_wheel_hinge: {p: 1.0, i: 0.1, d: 0.0}
+  front_right_wheel_hinge: {p: 1.0, i: 0.1, d: 0.0}

@@ -1,0 +1,26 @@
+<launch>
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find test_robot_gazebo)/worlds/test_robot.world"/>
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" />
+  
+  <param name="robot_description" textfile="$(find test_robot_description)/model/test_robot.urdf" />
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find test_robot_description)/model/test_robot.urdf -urdf -z 1 -model test_robot" />
+
+  <rosparam file="$(find test_robot_description)/config/diff_drive.yaml" command="load" />
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/test_robot" args="joint_state_controller diff_drive_controller" />
+    <remap from="/cmd_vel" to="/test_robot/diff_drive_controller/cmd_vel" />
+
+  <rosparam file="$(find test_robot_description)/config/gazebo_ros_control_params.yaml" command="load"/>
+
+  <arg name="gui" default="True" />
+   <param name="use_gui" value="True"/>
+   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+    <remap from="/joint_states" to="/test_robot/joint_states" />
+
+
+</launch>

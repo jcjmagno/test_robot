@@ -1,0 +1,12 @@
+<launch>
+
+  <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+    <remap from="/scan" to="/laser/scan"/>
+    <param name="base_frame" value="base_link"/>
+  </node>
+  
+<node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node">
+  <param name="frame_id" value="/base_laser_front_link" />
+</node>
+
+</launch>

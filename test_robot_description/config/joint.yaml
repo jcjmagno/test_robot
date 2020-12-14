@@ -1,0 +1,14 @@
+test_robot:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 20
+
+  chassis_to_front_left_wheel_transmission:
+    type: velocity_controllers/JointPositionController
+    joint: front_left_wheel_hinge
+    pid: {p: 1.0, i: 0.1, d: 0.01}
+
+  chassis_to_front_right_wheel_transmission:
+    type: velocity_controllers/JointPositionController
+    joint: front_right_wheel_hinge
+    pid: {p: 1.0, i: 0.1, d: 0.01}
